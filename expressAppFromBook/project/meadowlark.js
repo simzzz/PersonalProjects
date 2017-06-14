@@ -1,14 +1,7 @@
 var express = require('express');
+var fortune = require('./lib/fortune.js');
 
 var app = express();
-
-var fortunes = [
-    "Vzetiq izpit e kato nevzetiq, samo che vzet",
-    "Kazval sum go mnogo put, shte go kaja pak: Kazval sum go mnogo puti",
-    "Golqm zaluk lapni, i go sduvchi dobre",
-    "Burzata rabota - stava burzo",
-    "Vulkut kojata si meni, no vutreshnite organi ne",
-]
 
 //Setting up view engine
 var handlebars = require('express-handlebars')
@@ -29,7 +22,7 @@ app.get('/', function(req, res){
 
 app.get('/about', function(req, res){
     var randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
-    res.render('about', {fortune: randomFortune});
+    res.render('about', {fortune: fortune.getFortune()});
 });
 
 
@@ -44,7 +37,7 @@ app.use(function(req, res){
 app.use(function(err, req, res, next){
     console.error(err.stack);
     res.status(500);
-    res.render('505');
+    res.render('500');
 });
 
 app.listen(app.get('port'), function(){
