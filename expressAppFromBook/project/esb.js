@@ -1,3 +1,4 @@
+/*eslint no-console: "error"*/
 var express = require('express');
 var fortune = require('./lib/fortune.js');
 
@@ -15,13 +16,34 @@ app.set('port', process.env.PORT || 3000);
 //Static middleware
 app.use(express.static(__dirname + '/public'));
 
+//Setting up unit tests
+app.use(function(req, res, next){
+    res.locals.showTests = app.get('env') !== 'production' && req.query.test === '1';
+    next();
+});
+
 //Getting them pages
 app.get('/', function(req, res){
     res.render('home');
 });
 
 app.get('/about', function(req, res){
-    res.render('about', {fortune: fortune.getFortune()});
+    res.render('about', {
+        fortune: fortune.getFortune(),
+        pageTestScript: '/qa/tests-about.js'
+    });
+});
+
+app.get('/teams/hearthstone', function(req, res){
+    res.render('teams/hearthstone')
+});
+
+app.get('/teams/leagueOfLegends', function(req, res){
+    res.render('teams/leagueOfLegends')
+});
+
+app.get('/teams/requestcoaching', function(req, res){
+    res.render('teams/requestcoaching');
 });
 
 
@@ -33,7 +55,7 @@ app.use(function(req, res){
 });
 
 //Custom 500 page / error handler middleware
-app.use(function(err, req, res, next){
+app.use(function(err, req, res){
     console.error(err.stack);
     res.status(500);
     res.render('500');

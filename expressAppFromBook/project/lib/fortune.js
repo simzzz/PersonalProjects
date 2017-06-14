@@ -1,6 +1,6 @@
 var fortunes = [
     "Vzetiq izpit e kato nevzetiq, samo che vzet",
-    "Kazval sum go mnogo put, shte go kaja pak: Kazval sum go mnogo puti",
+    "Kazval sum go mnogo puti, shte go kaja pak: Kazval sum go mnogo puti",
     "Golqm zaluk lapni, i go sduvchi dobre",
     "Burzata rabota - stava burzo",
     "Vulkut kojata si meni, no vutreshnite organi ne",
